@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <style>
+        .wrapper{
+            margin-left:30px;
+        }
+        input{
+            display:block;
+            margin-top:5px;
+        }
+        .registration, .login{
+            display:inline-block;
+            width:500px;
+            vertical-align:top;
+            margin-left:20px;
+        }
+        #ef_fn, #a2_fn, #ef_ln, #a2_ln, #ef_email, #inv_email, #unav_email,
+        #ef_pw, #ef_cpw, #nm_pw, #short_pw, #bad_login, #not_logged_in, #log_out{
+            display:none;
+        }
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    #{{message}}{
+
+                        display:block;
+                        color:red
+                    }
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </style>
+
+</head>
+<body>
+    <div class = "wrapper">
+        <h1>Login and Registration</h1>
+        <div id="not_logged_in">You must be logged in to enter this website</div>
+        <div id="log_out">You have been logged out</div>
+        <div class = 'registration'>
+            <h2>Register here!</h2>
+            <form action = '/checkreg' method='post'>
+                <p>First name:</p>
+                <div id="ef_fn">This field is required</div>
+                <div id="a2_fn">First name must contain at least two letters and contain only letters</div>
+                <input type = 'text' name = 'first_name' value = {{ session['first_name'] }}>
+                <p>Last name: </p>
+                <div id="ef_ln">This field is required</div>
+                <div id="a2_ln">Last name must contain at least two letters and contain only letterse</div>
+                <input type = 'text' name = 'last_name' value = {{ session['last_name'] }}>
+                <p>Email:</p>
+                <div id="ef_email">This field is required</div>
+                <div id="inv_email">Invalid email address</div>
+                <div id="unav_email">This email is already in use</div>
+                <input type = 'text' name = 'email' value = {{ session['email'] }}>
+                <p>password:</p>
+                <div id="ef_pw">This field is required</div>
+                <div id="short_pw">Password should be at least 8 characters long</div> 
+                <input type = 'password' name = 'password'>
+                <p>confirm password:</p>
+                <div id="ef_cpw">This field is required</div> 
+                <div id="nm_pw">Passwords must match</div>
+                <input type = 'password' name = 'confirm_password'>
+                <input type = 'submit' value = 'Register!'>
+            </form>
+        </div>
+        <div class = 'login'>
+            <h2>Login here!</h2>
+            <div id="bad_login">You could not be logged in</div>
+            <form action = '/logincheck' method='post'>
+                <p>Email: </p>
+                <input type = 'text' name = 'email'>
+                <p>password: </p>
+                <input type = 'password' name = 'password'>
+                <input type = 'submit' value = 'Login!'>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,56 @@
+*{
+    padding:0;
+    margin:0;
+}
+.wrapper{
+    width:970px;
+    margin-left:30px;
+}
+.header{
+    border-bottom: 2px solid black;
+}
+.header h2, .header p{
+    display:inline-block;
+}
+.comment{
+    margin-left:60px;
+    width:750px;
+}
+.messages p{
+    margin-left:10px;
+    margin-bottom:10px;
+}
+h6{
+    font-size:12px;
+}
+form{
+    margin-bottom:30px;
+}
+.header p{
+    margin-left:500px;
+}
+.header a{
+    margin-left:10px;
+}
+textarea{
+    min-width: 800px;
+}
+.submit{
+    margin-left:700px;
+}
+.messages{
+    margin-left:70px;
+    padding-top:100px
+}
+.header{
+    position:fixed;
+    vertical-align:top;
+    background-color: white;
+}
+h5{
+    padding-top:10px;
+}
+.post{
+    width:800px;
+
+}
