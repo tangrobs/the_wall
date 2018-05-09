@@ -95,12 +95,6 @@ def check_reg():
 def logincheck():
     login_info = request.form
     data = mysql.query_db("SELECT * FROM users WHERE email = %(email)s",{'email':login_info['email']})
-
-    found_user = False
-    user_id = None
-    print("#######################################: ")
-    print(data)
-    print("#######################################: ")
     if data:
         #if the user is found check if the password is correct
         if bcrypt.check_password_hash(data[0]['password_hash'], login_info['password']):
