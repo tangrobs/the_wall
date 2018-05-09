@@ -93,27 +93,20 @@ def check_reg():
 
 @app.route('/logincheck', methods=['POST'])
 def logincheck():
-    data = mysql.query_db("SELECT * FROM users")
     login_info = request.form
+    data = mysql.query_db("SELECT * FROM users WHERE email = %(email)s",{'email':login_info['email']})
+
     found_user = False
     user_id = None
-    #go through all emails in the database and see if there is a match
-    for e in data:
-        if login_info['email'] == e['email']:
-            found_user = True
-            user_id = e['id']
-    #if the user is found check if the password is correct
-    if found_user:
-        query ="SELECT * FROM users WHERE id =%(id)s"
-        ins_data = {'id':user_id}
-        data_id = mysql.query_db(query,ins_data)
-        if bcrypt.check_password_hash(data_id[0]['password_hash'], login_info['password']):
-            session['user_logged_in_id'] = find_user_id(data_id[0]['email'])
-            session['user_name'] = find_user_id(data_id[0]['name'])
+    print("#######################################: ")
+    print(data)
+    print("#######################################: ")
+    if data:
+        #if the user is found check if the password is correct
+        if bcrypt.check_password_hash(data[0]['password_hash'], login_info['password']):
+            session['user_logged_in_id'] = data[0]['id']
+            session['user_name'] = data[0]['first_name']
             return redirect('/message_board')
-        else:
-            flash('bad_login')
-            return redirect('/')
     flash('bad_login')
     return redirect('/')
 
